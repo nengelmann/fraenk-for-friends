@@ -1,0 +1,354 @@
+:root {
+    --yellow: #ffff00;
+    --gray-bg: #f3f3f3;
+    --white: #ffffff;
+    --black: #000000;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace;
+}
+
+body {
+    background-color: var(--gray-bg);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 600px;
+    margin: 5px auto;
+    padding: 20px;
+}
+
+header {
+    text-align: left;
+    margin-bottom: 40px;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.title {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.highlight {
+    /* background-color: var(--yellow); */
+    padding: 0 5px;
+    display: inline-block;
+    background: linear-gradient(0deg, var(--yellow) 50%, var(--gray-bg) 0%) 0px -5px;
+
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    font-weight: normal;
+    line-height: 1.4;
+}
+
+.benefits {
+    margin-bottom: 40px;
+}
+
+.benefit-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    font-size: 1.1rem;
+}
+
+.checkmark {
+    color: var(--black);
+    margin-right: 10px;
+    font-weight: bold;
+    font-size: xx-large;
+    background: linear-gradient(0deg, var(--yellow) 50%, var(--gray-bg) 0%) 0px -5px;
+}
+
+.code-section {
+    margin-bottom: 30px;
+    max-width: 350px;
+}
+
+.code-section label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.code-container {
+    background: var(--white);
+    padding: 15px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    width: 100%;
+}
+
+.code {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.code.blurred {
+    filter: blur(4px);
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    pointer-events: none;
+}
+
+.copy-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: opacity 0.2s;
+}
+
+.copy-btn svg {
+    fill: currentColor;
+    transition: transform 0.2s;
+}
+
+.copy-btn.copied {
+    opacity: 0.7;
+}
+
+.copy-btn.copied svg {
+    transform: scale(0.9);
+}
+
+.copy-feedback {
+    position: absolute;
+    background: var(--black);
+    color: var(--white);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    right: calc(100% + 8px);
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(10px);
+    transition: all 0.2s;
+    pointer-events: none;
+}
+
+.copy-btn.copied .copy-feedback {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.terms-section {
+    margin-top: 20px;
+}
+
+.terms-label {
+    display: flex;
+    align-items: left;
+    justify-content: space-between;
+    max-width: 350px;
+    gap: 4px;
+}
+
+.link-btn {
+    background: none;
+    border: none;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0;
+    color: inherit;
+    font-size: inherit;
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+    margin-left: 25px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: var(--black);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s, visibility 0.2s;
+}
+
+.modal[style*="display: block"] {
+    opacity: 1;
+    visibility: visible;
+    display: flex !important;
+}
+
+.modal-content {
+    background-color: var(--gray-bg);
+    width: 100%;
+    max-width: 600px;
+    max-height: 90vh;
+    margin: 20px;
+    overflow-y: auto;
+    position: relative;
+    border-radius: 8px;
+}
+
+.modal-header {
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    position: sticky;
+    top: 0;
+    background: var(--gray-bg);
+    z-index: 1;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.terms-text {
+    white-space: pre-wrap;
+    line-height: 1.6;
+}
+.terms-intro {
+    line-height: 1.6;
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 15px;
+    }
+
+    .title {
+        font-size: 2rem;
+    }
+
+    .subtitle {
+        font-size: 1.2rem;
+    }
+
+    .modal-content {
+        margin: 0;
+        height: 100%;
+        max-height: 100%;
+        border-radius: 10;
+    }
+}
+
+/* SEO and Accessibility Improvements */
+.breadcrumb {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px;
+    display: flex;
+    gap: 8px;
+}
+
+.breadcrumb li:not(:last-child):after {
+    content: "›";
+    margin-left: 8px;
+}
+
+.breadcrumb a {
+    color: var(--black);
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+article {
+    max-width: 100%;
+}
+
+/* Footer styles */
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    text-align: center;
+    background: var(--gray-bg);
+}
+
+/* Modal styles for Impressum */
+.modal-body h3 {
+    margin: 20px 0 10px;
+    font-size: 1.1rem;
+}
+
+.modal-body h3:first-child {
+    margin-top: 0;
+}
+
+.modal-body p {
+    margin-bottom: 15px;
+    line-height: 1.6;
+} 
