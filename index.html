@@ -138,7 +138,7 @@
                 </section>
                 
                 <section class="faq-link-section">
-                    <button class="link-btn" onclick="showFaq()">Häufig gestellte Fragen zum fraenk Empfehlungscode</button>
+                    <button class="link-btn" id="faq-btn">Häufig gestellte Fragen zum fraenk Empfehlungscode</button>
                 </section>
             </article>
         </main>
@@ -241,5 +241,72 @@
     </footer>
 
     <script src="script.js" defer></script>
+    
+    <!-- Emergency fix for FAQ button -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                // Get elements
+                const faqBtn = document.getElementById('faq-btn');
+                const faqModal = document.getElementById('faq-modal');
+                
+                if (!faqBtn || !faqModal) {
+                    throw new Error('FAQ elements not found');
+                }
+                
+                const faqCloseBtn = faqModal.querySelector('.close-btn');
+                
+                if (!faqCloseBtn) {
+                    throw new Error('FAQ close button not found');
+                }
+                
+                // Show FAQ modal when button is clicked
+                faqBtn.addEventListener('click', function() {
+                    faqModal.style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                });
+                
+                // Hide FAQ modal when close button is clicked
+                faqCloseBtn.addEventListener('click', function() {
+                    faqModal.style.display = 'none';
+                    document.body.style.overflow = '';
+                });
+                
+                // Hide FAQ modal when clicking outside
+                window.addEventListener('click', function(event) {
+                    if (event.target === faqModal) {
+                        faqModal.style.display = 'none';
+                        document.body.style.overflow = '';
+                    }
+                });
+                
+                // Hide FAQ modal when ESC key is pressed
+                document.addEventListener('keydown', function(event) {
+                    if (event.key === 'Escape' && faqModal.style.display === 'block') {
+                        faqModal.style.display = 'none';
+                        document.body.style.overflow = '';
+                    }
+                });
+            } catch (error) {
+                console.error('Error setting up FAQ functionality:', error);
+                
+                // Try a simpler approach as fallback
+                const faqBtn = document.getElementById('faq-btn');
+                if (faqBtn) {
+                    faqBtn.addEventListener('click', function() {
+                        try {
+                            const faqModal = document.getElementById('faq-modal');
+                            if (faqModal) {
+                                faqModal.style.display = 'block';
+                                document.body.style.overflow = 'hidden';
+                            }
+                        } catch (e) {
+                            console.error('Fallback FAQ handler failed:', e);
+                        }
+                    });
+                }
+            }
+        });
+    </script>
 </body>
 </html> 

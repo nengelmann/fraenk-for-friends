@@ -1,40 +1,43 @@
-// Get DOM elements
-const modal = document.getElementById('terms-modal');
-const impressumModal = document.getElementById('impressum-modal');
-const faqModal = document.getElementById('faq-modal');
-const code = document.getElementById('code');
-const termsToggle = document.getElementById('terms-toggle');
-const termsText = document.querySelector('.terms-text');
-
-// Load terms content
-fetch('Teilnahmebedingungen.txt')
-    .then(response => response.text())
-    .then(text => {
-        termsText.textContent = text;
-    })
-    .catch(error => {
-        console.error('Error loading terms:', error);
-        termsText.textContent = 'Error loading terms. Please try again later.';
-    });
-
-// Toggle code blur based on checkbox state
-function toggleCode() {
-    const isBlurred = !termsToggle.checked;
-    code.classList.toggle('blurred', isBlurred);
-    
-    // Toggle copy button state
-    const copyBtn = document.querySelector('.copy-btn');
-    if (isBlurred) {
-        copyBtn.classList.add('disabled');
-        copyBtn.setAttribute('aria-disabled', 'true');
-    } else {
-        copyBtn.classList.remove('disabled');
-        copyBtn.setAttribute('aria-disabled', 'false');
-    }
-}
+// Variable declarations
+let modal, impressumModal, faqModal, code, termsToggle, termsText;
 
 // Performance optimization
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM fully loaded');
+    
+    // Get DOM elements after DOM is loaded
+    modal = document.getElementById('terms-modal');
+    impressumModal = document.getElementById('impressum-modal');
+    faqModal = document.getElementById('faq-modal');
+    code = document.getElementById('code');
+    termsToggle = document.getElementById('terms-toggle');
+    termsText = document.querySelector('.terms-text');
+    
+    console.log('FAQ Modal element:', faqModal);
+    
+    // Add direct event listener to FAQ button
+    const faqBtn = document.querySelector('.faq-link-section .link-btn');
+    if (faqBtn) {
+        console.log('Found FAQ button, adding additional listener');
+        faqBtn.addEventListener('click', function(event) {
+            console.log('FAQ button clicked via event listener');
+            showFaq();
+        });
+    } else {
+        console.error('FAQ button not found in DOM');
+    }
+    
+    // Load terms content
+    fetch('Teilnahmebedingungen.txt')
+        .then(response => response.text())
+        .then(text => {
+            termsText.textContent = text;
+        })
+        .catch(error => {
+            console.error('Error loading terms:', error);
+            termsText.textContent = 'Error loading terms. Please try again later.';
+        });
+    
     // Preload terms content
     const termsLink = document.querySelector('a[href*="Teilnahmebedingungen"]');
     if (termsLink) {
@@ -47,12 +50,34 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initialize copy button state
     const copyBtn = document.querySelector('.copy-btn');
-    copyBtn.classList.add('disabled');
-    copyBtn.setAttribute('aria-disabled', 'true');
+    if (copyBtn) {
+        copyBtn.classList.add('disabled');
+        copyBtn.setAttribute('aria-disabled', 'true');
+    }
 
     // Add structured data for mobile app (if needed)
     addMobileAppStructuredData();
 });
+
+// Toggle code blur based on checkbox state
+function toggleCode() {
+    if (!termsToggle || !code) return;
+    
+    const isBlurred = !termsToggle.checked;
+    code.classList.toggle('blurred', isBlurred);
+    
+    // Toggle copy button state
+    const copyBtn = document.querySelector('.copy-btn');
+    if (!copyBtn) return;
+    
+    if (isBlurred) {
+        copyBtn.classList.add('disabled');
+        copyBtn.setAttribute('aria-disabled', 'true');
+    } else {
+        copyBtn.classList.remove('disabled');
+        copyBtn.setAttribute('aria-disabled', 'false');
+    }
+}
 
 // Add mobile app structured data
 function addMobileAppStructuredData() {
@@ -88,6 +113,8 @@ function trackUserInteraction(action) {
 
 // Show terms modal
 function showTerms() {
+    if (!modal) return;
+    
     modal.style.display = 'block';
     document.body.style.overflow = 'hidden';
     trackUserInteraction('terms_viewed');
@@ -95,29 +122,48 @@ function showTerms() {
 
 // Hide terms modal
 function hideTerms() {
+    if (!modal) return;
+    
     modal.style.display = 'none';
     document.body.style.overflow = '';
 }
 
 // Show FAQ modal
 function showFaq() {
-    faqModal.style.display = 'block';
-    document.body.style.overflow = 'hidden';
-    trackUserInteraction('faq_viewed');
+    console.log('showFaq called, faqModal:', faqModal);
+    
+    if (!faqModal) {
+        console.error('FAQ modal element not found!');
+        // Try to get it again in case it was loaded after initial DOM ready
+        faqModal = document.getElementById('faq-modal');
+        console.log('Re-trying to get faqModal:', faqModal);
+    }
+    
+    if (faqModal) {
+        faqModal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        trackUserInteraction('faq_viewed');
+    }
 }
 
 // Hide FAQ modal
 function hideFaq() {
+    if (!faqModal) return;
+    
     faqModal.style.display = 'none';
     document.body.style.overflow = '';
 }
 
 // Copy code to clipboard
 function copyCode() {
+    if (!code) return;
+    
     if (!code.classList.contains('blurred')) {
         navigator.clipboard.writeText(code.textContent)
             .then(() => {
                 const copyBtn = document.querySelector('.copy-btn');
+                if (!copyBtn) return;
+                
                 copyBtn.classList.add('copied');
                 trackUserInteraction('code_copied');
                 
@@ -142,6 +188,8 @@ function copyCode() {
 
 // Show impressum modal
 function showImpressum() {
+    if (!impressumModal) return;
+    
     impressumModal.style.display = 'block';
     document.body.style.overflow = 'hidden';
     trackUserInteraction('impressum_viewed');
@@ -149,12 +197,16 @@ function showImpressum() {
 
 // Hide impressum modal
 function hideImpressum() {
+    if (!impressumModal) return;
+    
     impressumModal.style.display = 'none';
     document.body.style.overflow = '';
 }
 
 // Update window click handler for all modals
 window.onclick = function(event) {
+    if (!modal || !impressumModal || !faqModal) return;
+    
     if (event.target === modal) {
         hideTerms();
     } else if (event.target === impressumModal) {
@@ -166,6 +218,8 @@ window.onclick = function(event) {
 
 // Update escape key handler for all modals
 document.addEventListener('keydown', function(event) {
+    if (!modal || !impressumModal || !faqModal) return;
+    
     if (event.key === 'Escape') {
         if (modal.style.display === 'block') {
             hideTerms();
