@@ -339,6 +339,20 @@ input:focus + .slider {
     margin-bottom: 10px;
 }
 
+.faq-content a {
+    color: var(--black);
+    text-decoration: underline;
+}
+
+.faq-content a:hover {
+    text-decoration: none;
+}
+
+.faq-content a:focus {
+    outline: 2px solid #000;
+    outline-offset: 2px;
+}
+
 /* Screen reader only class */
 .sr-only {
     position: absolute;
@@ -414,6 +428,26 @@ footer {
     padding: 20px;
     text-align: center;
     background: var(--gray-bg);
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.footer-links .link-btn {
+    color: var(--black);
+    text-decoration: underline;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    font-size: 1rem;
+}
+
+.footer-links .link-btn:hover {
+    text-decoration: none;
 }
 
 /* Modal styles for Impressum */
