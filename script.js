@@ -171,7 +171,6 @@ function copyCode() {
                 const announcement = document.createElement('div');
                 announcement.setAttribute('aria-live', 'polite');
                 announcement.className = 'sr-only';
-                announcement.textContent = 'Code wurde kopiert';
                 document.body.appendChild(announcement);
                 
                 // Remove the class after animation
