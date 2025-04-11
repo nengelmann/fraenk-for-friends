@@ -101,23 +101,12 @@ function addMobileAppStructuredData() {
     document.head.appendChild(script);
 }
 
-// Track important user interactions
-function trackUserInteraction(action) {
-    if (typeof gtag !== 'undefined') {
-        gtag('event', action, {
-            'event_category': 'User Interaction',
-            'event_label': 'fraenk code'
-        });
-    }
-}
-
 // Show terms modal
 function showTerms() {
     if (!modal) return;
     
     modal.style.display = 'block';
     document.body.style.overflow = 'hidden';
-    trackUserInteraction('terms_viewed');
 }
 
 // Hide terms modal
@@ -142,7 +131,6 @@ function showFaq() {
     if (faqModal) {
         faqModal.style.display = 'block';
         document.body.style.overflow = 'hidden';
-        trackUserInteraction('faq_viewed');
     }
 }
 
@@ -165,7 +153,6 @@ function copyCode() {
                 if (!copyBtn) return;
                 
                 copyBtn.classList.add('copied');
-                trackUserInteraction('code_copied');
                 
                 // Announce for screen readers
                 const announcement = document.createElement('div');
@@ -191,7 +178,6 @@ function showImpressum() {
     
     impressumModal.style.display = 'block';
     document.body.style.overflow = 'hidden';
-    trackUserInteraction('impressum_viewed');
 }
 
 // Hide impressum modal
