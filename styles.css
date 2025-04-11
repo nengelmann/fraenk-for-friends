@@ -313,6 +313,32 @@ input:focus + .slider {
     outline-offset: 2px;
 }
 
+/* FAQ in modal styling */
+.faq-content {
+    line-height: 1.6;
+}
+
+.faq-content .faq-item {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+}
+
+.faq-content .faq-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.faq-content .faq-item h3 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.faq-content .faq-item p {
+    margin-bottom: 10px;
+}
+
 /* Screen reader only class */
 .sr-only {
     position: absolute;
@@ -516,19 +542,25 @@ a:focus {
     text-align: center;
 }
 
-.faq-link {
+.faq-link-section .link-btn {
     display: inline-block;
     padding: 10px 0;
-    color: #0066cc;
+    color: var(--black);
     text-decoration: underline;
     font-weight: 500;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.faq-link {
+    display: none;
 }
 
 .faq-link:hover {
-    text-decoration: none;
+    display: none;
 }
 
 .faq-link:focus {
-    outline: 2px solid #000;
-    outline-offset: 2px;
+    display: none;
 } 

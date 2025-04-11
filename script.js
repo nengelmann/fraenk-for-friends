@@ -1,6 +1,7 @@
 // Get DOM elements
 const modal = document.getElementById('terms-modal');
 const impressumModal = document.getElementById('impressum-modal');
+const faqModal = document.getElementById('faq-modal');
 const code = document.getElementById('code');
 const termsToggle = document.getElementById('terms-toggle');
 const termsText = document.querySelector('.terms-text');
@@ -98,6 +99,19 @@ function hideTerms() {
     document.body.style.overflow = '';
 }
 
+// Show FAQ modal
+function showFaq() {
+    faqModal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+    trackUserInteraction('faq_viewed');
+}
+
+// Hide FAQ modal
+function hideFaq() {
+    faqModal.style.display = 'none';
+    document.body.style.overflow = '';
+}
+
 // Copy code to clipboard
 function copyCode() {
     if (!code.classList.contains('blurred')) {
@@ -139,22 +153,26 @@ function hideImpressum() {
     document.body.style.overflow = '';
 }
 
-// Update window click handler for both modals
+// Update window click handler for all modals
 window.onclick = function(event) {
     if (event.target === modal) {
         hideTerms();
     } else if (event.target === impressumModal) {
         hideImpressum();
+    } else if (event.target === faqModal) {
+        hideFaq();
     }
 }
 
-// Update escape key handler for both modals
+// Update escape key handler for all modals
 document.addEventListener('keydown', function(event) {
     if (event.key === 'Escape') {
         if (modal.style.display === 'block') {
             hideTerms();
         } else if (impressumModal.style.display === 'block') {
             hideImpressum();
+        } else if (faqModal.style.display === 'block') {
+            hideFaq();
         }
     }
 }); 

@@ -138,7 +138,7 @@
                 </section>
                 
                 <section class="faq-link-section">
-                    <a href="/faq.html" class="faq-link">Häufig gestellte Fragen zum fraenk Empfehlungscode</a>
+                    <button class="link-btn" onclick="showFaq()">Häufig gestellte Fragen zum fraenk Empfehlungscode</button>
                 </section>
             </article>
         </main>
@@ -161,6 +161,44 @@
                 </div>
                 <h3>Teilnahmebedingungen von fraenk</h3>
                 <div class="terms-text"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="faq-modal" class="modal" role="dialog" aria-labelledby="faq-title" aria-modal="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="faq-title" class="highlight">Häufig gestellte Fragen</h2>
+                <button class="close-btn" onclick="hideFaq()" aria-label="Schließen">&times;</button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="faq-content">
+                    <div class="faq-item">
+                        <h3>Was ist der fraenk Empfehlungscode?</h3>
+                        <p>Der fraenk Empfehlungscode ist ein spezieller Code, den du bei deiner Bestellung eines fraenk-Tarifs eingeben kannst, um dauerhaft +3 GB mehr Datenvolumen pro Monat zu erhalten. Dieser Code ist Teil des "fraenk for friends" Programms.</p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>Wie nutze ich den fraenk Empfehlungscode?</h3>
+                        <p>Kopiere einfach den Empfehlungscode von unserer Website und gib ihn während des Bestellprozesses auf fraenk.de oder in der fraenk App ein. Der Code muss vor Abschluss deiner Bestellung eingelöst werden und kann nicht nachträglich hinzugefügt werden.</p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>Erhalte ich die +3 GB Datenvolumen wirklich dauerhaft?</h3>
+                        <p>Ja, die +3 GB zusätzliches Datenvolumen erhältst du dauerhaft jeden Monat, solange dein fraenk-Vertrag aktiv ist und der Empfehlungsgeber seinen Vertrag mindestens 6 Monate behält.</p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>Wann erhalte ich mein zusätzliches Datenvolumen?</h3>
+                        <p>Das zusätzliche Datenvolumen wird aktiviert, sobald dein fraenk-Vertrag aktiv ist. Bei einer Rufnummernmitnahme kann es bis zu 4 Monate dauern, bis du dein zusätzliches Datenvolumen erhältst.</p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3>Kann ich mehrere Empfehlungscodes kombinieren?</h3>
+                        <p>Nein, du kannst nur einen Empfehlungscode pro Bestellung einlösen. Es ist nicht möglich, mehrere Codes zu kombinieren oder einen Code nachträglich einzulösen.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
