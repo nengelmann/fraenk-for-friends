@@ -25,8 +25,10 @@ function toggleCode() {
     const copyBtn = document.querySelector('.copy-btn');
     if (isBlurred) {
         copyBtn.classList.add('disabled');
+        copyBtn.setAttribute('aria-disabled', 'true');
     } else {
         copyBtn.classList.remove('disabled');
+        copyBtn.setAttribute('aria-disabled', 'false');
     }
 }
 
@@ -45,7 +47,33 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize copy button state
     const copyBtn = document.querySelector('.copy-btn');
     copyBtn.classList.add('disabled');
+    copyBtn.setAttribute('aria-disabled', 'true');
+
+    // Add structured data for mobile app (if needed)
+    addMobileAppStructuredData();
 });
+
+// Add mobile app structured data
+function addMobileAppStructuredData() {
+    const appData = {
+        "@context": "https://schema.org",
+        "@type": "MobileApplication",
+        "name": "fraenk App",
+        "operatingSystem": "Android, iOS",
+        "applicationCategory": "UtilitiesApplication",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "EUR"
+        },
+        "description": "Die fraenk App - der einfache Mobilfunktarif der Telekom mit +3GB extra Datenvolumen."
+    };
+
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify(appData);
+    document.head.appendChild(script);
+}
 
 // Track important user interactions
 function trackUserInteraction(action) {
@@ -79,9 +107,17 @@ function copyCode() {
                 copyBtn.classList.add('copied');
                 trackUserInteraction('code_copied');
                 
+                // Announce for screen readers
+                const announcement = document.createElement('div');
+                announcement.setAttribute('aria-live', 'polite');
+                announcement.className = 'sr-only';
+                announcement.textContent = 'Code wurde kopiert';
+                document.body.appendChild(announcement);
+                
                 // Remove the class after animation
                 setTimeout(() => {
                     copyBtn.classList.remove('copied');
+                    document.body.removeChild(announcement);
                 }, 1500);
             })
             .catch(err => {

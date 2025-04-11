@@ -1,0 +1,6 @@
+# Robots.txt file for fraenk-for-friends.online
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://fraenk-for-friends.online/sitemap.xml 
