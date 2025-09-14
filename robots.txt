@@ -2,5 +2,8 @@
 User-agent: *
 Allow: /
 
+# LLM information file
+llm.txt: /llm.txt
+
 # Sitemap location
 Sitemap: https://fraenk-for-friends.online/sitemap.xml 
