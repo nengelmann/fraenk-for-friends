@@ -1,5 +1,5 @@
 // Variable declarations
-let modal, impressumModal, faqModal, code, termsToggle, termsText;
+let modal, impressumModal, faqModal, datenschutzModal, code, termsToggle, termsText;
 
 // Performance optimization
 document.addEventListener('DOMContentLoaded', function() {
@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     modal = document.getElementById('terms-modal');
     impressumModal = document.getElementById('impressum-modal');
     faqModal = document.getElementById('faq-modal');
+    datenschutzModal = document.getElementById('datenschutz-modal');
     code = document.getElementById('code');
     termsToggle = document.getElementById('terms-toggle');
     termsText = document.querySelector('.terms-text');
@@ -188,6 +189,22 @@ function hideImpressum() {
     document.body.style.overflow = '';
 }
 
+// Show datenschutz modal
+function showDatenschutz() {
+    if (!datenschutzModal) return;
+    
+    datenschutzModal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+}
+
+// Hide datenschutz modal
+function hideDatenschutz() {
+    if (!datenschutzModal) return;
+    
+    datenschutzModal.style.display = 'none';
+    document.body.style.overflow = '';
+}
+
 // Update window click handler for all modals
 window.onclick = function(event) {
     if (!modal || !impressumModal || !faqModal) return;
@@ -198,6 +215,8 @@ window.onclick = function(event) {
         hideImpressum();
     } else if (event.target === faqModal) {
         hideFaq();
+    } else if (datenschutzModal && event.target === datenschutzModal) {
+        hideDatenschutz();
     }
 }
 
@@ -212,6 +231,8 @@ document.addEventListener('keydown', function(event) {
             hideImpressum();
         } else if (faqModal.style.display === 'block') {
             hideFaq();
+        } else if (datenschutzModal && datenschutzModal.style.display === 'block') {
+            hideDatenschutz();
         }
     }
 }); 
